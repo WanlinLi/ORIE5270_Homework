@@ -1,5 +1,6 @@
-A. What we covered? 
+Author: Wanlin Li (wl596)
 
+A. What we covered? 
 1. Amazon Web Services (AWS): AWS provides cloud computing platforms to customers.
 1.1. Launch instance: 
 a) Sign in personal account in AWS, go to Services > compute > EC2 > Launch instance;
@@ -60,7 +61,14 @@ bash middle.sh pentane.pdb 15 5: Select the first 15 rows of the file pentane.pd
 
 
 B. Why does that matter?
+AWS: 
 Cloud compute increase efficiency. It provides flexibility; if your computation needs vary from time to time, you can easily scale up or down your cloud capacity to match your needs, which also help to save the hardware cost.
+Git: 
 Branches are useful because you can try out your new ideas by creating a new branch in your project and try out the ideas on that branch. Changes on the branches do not affect the master branch. 
-Version control can be used to keep track of what one person did and when. It is like an unlimited "undo", and also allows many people to work in parallel.
+Version control can be used to keep track of what one person did and when. It is like an unlimited "undo", and also allows many people to work in parallel. 
+Linux:
+Secure; support almost all major programming languages. 
+Vim: 
+Efficient text editor in Linux
+Shell: 
 Shell allows us to run a batch (e.g. a python script with some parameters as input) repeatedly.
