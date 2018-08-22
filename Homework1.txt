@@ -1,0 +1,66 @@
+A. What we covered? 
+
+1. Amazon Web Services (AWS): AWS provides cloud computing platforms to customers.
+1.1. Launch instance: 
+a) Sign in personal account in AWS, go to Services > compute > EC2 > Launch instance;
+b) Choose an Amazon Machine Image (AMI), e.g. Amazon Linux 2 AMI (HVM), SSD Volume Type - ami-0cf31d971a3ca20d6;
+c) Choose an instance type, e.g. t2.micro > Review and Launch > Launch;
+d) Select an existing key pair or create a new key pair > If choose to create a new key pair, download the key pair file key_name.pem > Launch;
+
+1.2. Connect to host in Linux:
+a) Change directory to where the key pair file is stored (using the cd command), e.g. cd /mnt/c/Users/16907/OneDrive/Documents/;
+b) Connect: ssh -i “key_name.pem” user@public_DNS, then the current working directory changes from the personal laptop to the ec2 user instance;
+
+1.3. Install Git: sudo yum install git;
+
+
+2. Git and Linux
+2.1. Generate a new SSH key:
+a) ssh-keygen -t rsa -b 4096 -C your_email@example.com
+b) When prompted to “Enter a file in which to save the key”, directly press Enter to accepts the default file location;
+c) Type and re-type the secure passphrase at the prompt.
+
+2.2. Adding your SSH key to the ssh-agent:
+a) eval $(ssh-agent -s);
+b) Add the SSH private key to the ssh-agent: ssh-add ~/.ssh/id_rsa;
+c) Enter the passphrase for the private key.
+
+2.3. Add the SSH key to the GitHub account:
+a) Copy the SSH key to the clipboard: Go to the folder which contains the private key file using command “cd ~/.ssh”, then can see the list of file using “ls”, including the id_rsa.pub file. Open this file using command “vim id_rsa.pub”, and copy it to the clipboard;
+b) In the upper-right corner of any GitHub page, click the profile photo > Settings > SSH and GPG Keys > New SSH Key or New GPG key > Add a title, and paste the key into the key field > Add SHH Key.
+
+2.4. Branches:
+a) Check the current branch: git branch;
+b) Create a new branch: git checkout -b name_branch commit_number;
+ 
+2.5. Git log/add/commit/push:
+a) Create a new repository in GitHub, e.g. WanlinLi/test;
+b) Git clone: git clone https://github.com/WanlinLi/test.git;
+c) cd test/;
+d) Create a new txt file: touch text.txt;
+e) Git add: git add text.txt;
+f) Git commit: git commit -m "message";
+g) Git push: git push origin master.
+
+2.6. Other useful Linux command:
+a) Show current directory: pwd;
+b) Formatted listing with all hidden file: ls -al;
+c) Create a directory dir: mkdir dir; 
+ 
+3. Useful VIM command:
+a) Go to last line of the document > G;
+b) Go to xxx line in the document > xxxG;
+c) Copy xx (number of lines) lines > xxyy;
+d) Write the file > :w;
+e) Quit the file (do not save) > :q;
+f) Write and exit the file > :wq;
+
+4. Shell example script: 
+bash middle.sh pentane.pdb 15 5: Select the first 15 rows of the file pentane.pdb, and output the last 5 rows of the selected part.
+
+
+B. Why does that matter?
+Cloud compute increase efficiency. It provides flexibility; if your computation needs vary from time to time, you can easily scale up or down your cloud capacity to match your needs, which also help to save the hardware cost.
+Branches are useful because you can try out your new ideas by creating a new branch in your project and try out the ideas on that branch. Changes on the branches do not affect the master branch. 
+Version control can be used to keep track of what one person did and when. It is like an unlimited "undo", and also allows many people to work in parallel.
+Shell allows us to run a batch (e.g. a python script with some parameters as input) repeatedly.
