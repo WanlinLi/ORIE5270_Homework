@@ -4,7 +4,7 @@ class Tree(object):
 
     def get_value_root(self):
         """
-        Get the value of the root node
+        get root value
         :return: (double)
         """
         if self.root is not None:
@@ -14,7 +14,7 @@ class Tree(object):
 
     def get_tree_height(self):
         """
-        Get the height of the tree
+        get tree height
         :return: (int)
         """
         if self.root is None:
@@ -29,37 +29,54 @@ class Tree(object):
         print the tree
         :return: list of lists
         """
-        tree_height = self.get_tree_height()
-        Matrix = []
-        for i in range(tree_height):
-            Matrix.append(["|"] * (2 * tree_height - 1))
-        left_count = 0
-        right_count = 0
-        Matrix = self.print_sub_tree(tree_height, Matrix, left_count, right_count)
-        return Matrix
+        height = self.get_tree_height()
+        tree = []
+        for i in range(height):
+            tree.append(["|"] * (2 ** height - 1))
+        matrix = self.print_partial_tree()
+        position = []
+        for j in range(len(matrix[height - 1])):
+            tree[height - 1][2 * j] = matrix[height - 1][j]
+            position.append(2 * j)
+        for i in range(height - 2, -1, -1):
+            new_position = []
+            for k in range(len(matrix[i])):
+                tree[i][(position[2 * k] + position[2 * k + 1]) / 2] = matrix[i][k]
+                new_position.append((position[2 * k] + position[2 * k + 1]) / 2)
+            position = new_position
+        for i in range(height):
+            for j in range(len(tree[0])):
+                if tree[i][j] == "None":
+                    tree[i][j] = "|"
 
-    def print_sub_tree(self, tree_height, matrix, left_count, right_count):
+        return tree
+
+    def print_partial_tree(self):
         """
-        print the tree
-        :param tree_height: (int)
-        :param matrix: list of lists
-        :param left_count: (int)
-        :param right_count: (int)
+        print tree without "|"
         :return: list of lists
         """
-        leaf_height = self.get_tree_height()
-        root = self.get_value_root()
-        center = tree_height - left_count + right_count - 1
-        matrix[tree_height - leaf_height][center] = str(root)
-        left = Tree(self.root.left)
-        left_value = left.get_value_root()
-        right = Tree(self.root.right)
-        right_value = right.get_value_root()
-        if left_value is not None:
-            matrix = left.print_sub_tree(tree_height, matrix, left_count + 1, right_count)
-        if right_value is not None:
-            matrix = right.print_sub_tree(tree_height, matrix, left_count, right_count + 1)
-        return matrix
+        height = self.get_tree_height()
+        current_lv = [self]
+        Matrix = [[str(self.get_value_root())]]
+        for k in range(height - 1):
+            next_lv = []
+            next_lv_value = []
+            for i in current_lv:
+                if i.root:
+                    next_lv.append(Tree(i.root.left))
+                    next_lv.append(Tree(i.root.right))
+                    next_lv_value.append(str(Tree(i.root.left).get_value_root()))
+                    next_lv_value.append(str(Tree(i.root.right).get_value_root()))
+                else:
+                    next_lv.append("None")
+                    next_lv.append("None")
+                    next_lv_value.append("None")
+                    next_lv_value.append("None")
+                current_lv = next_lv
+            Matrix.append(next_lv_value)
+        return Matrix
+
 
 class Node(object):
 
