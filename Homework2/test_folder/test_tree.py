@@ -1,14 +1,14 @@
 import unittest
-from print_tree import Tree
-from print_tree import Node
+from tree_folder.tree_print import Tree
+from tree_folder.tree_print import Node
 
 
 class testtree(unittest.TestCase):
     def test_one_node(self):
         node1 = Node(2, None, None)
         self.tree1 = Tree(node1)
-        self.answer1 = ['2']
-        assert Tree.print_tree(self.tree1) == self.answer1
+        self.answer1 = [['2']]
+        assert self.tree1.print_tree() == self.answer1
 
     def test_one_branch(self):
         node1 = Node(2, None, None)
@@ -25,7 +25,7 @@ class testtree(unittest.TestCase):
                         ["|", "3", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|"],
                         ["2", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "|"]]
 
-        assert Tree.print_tree(self.tree2) == self.answer2
+        assert self.tree2.print_tree() == self.answer2
 
     def test_full_tree(self):
         node1 = Node(1, None, None)
@@ -48,7 +48,7 @@ class testtree(unittest.TestCase):
                         ["|", "2", "|", "|", "|", "3", "|"],
                         ["4", "|", "5", "|", "6", "|", "7"]]
 
-        assert Tree.print_tree(self.tree3) == self.answer3
+        assert self.tree3.print_tree() == self.answer3
 
     def test_random_tree(self):
         node1 = Node(1, None, None)
@@ -65,7 +65,7 @@ class testtree(unittest.TestCase):
         self.tree4 = Tree(node1)
         self.answer4 = [["|", "|", "|", "|", "|", "|", "|", "1", "|", "|", "|", "|", "|", "|", "|"],
                         ["|", "|", "|", "2", "|", "|", "|", "|", "|", "|", "|", "3", "|", "|", "|"],
-                        ["|", "3", "|", "|", "|", "|", "|", "|", "|", "4", "|", "|", "|", "|", "|"],
-                        ["2", "|", "|", "|", "|", "|", "|", "|", "|", "|", "5", "|", "|", "|", "|"]]
+                        ["|", "|", "|", "|", "|", "|", "|", "|", "|", "4", "|", "|", "|", "|", "|"],
+                        ["|", "|", "|", "|", "|", "|", "|", "|", "|", "|", "5", "|", "|", "|", "|"]]
 
-        assert Tree.print_tree(self.tree4) == self.answer4
+        assert self.tree4.print_tree() == self.answer4

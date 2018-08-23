@@ -63,16 +63,22 @@ class Tree(object):
             next_lv = []
             next_lv_value = []
             for i in current_lv:
-                if i.root:
-                    next_lv.append(Tree(i.root.left))
-                    next_lv.append(Tree(i.root.right))
-                    next_lv_value.append(str(Tree(i.root.left).get_value_root()))
-                    next_lv_value.append(str(Tree(i.root.right).get_value_root()))
+                if i == "None":
+                    next_lv.append("None")
+                    next_lv.append("None")
+                    next_lv_value.append("None")
+                    next_lv_value.append("None")
                 else:
-                    next_lv.append("None")
-                    next_lv.append("None")
-                    next_lv_value.append("None")
-                    next_lv_value.append("None")
+                    if i.root:
+                        next_lv.append(Tree(i.root.left))
+                        next_lv.append(Tree(i.root.right))
+                        next_lv_value.append(str(Tree(i.root.left).get_value_root()))
+                        next_lv_value.append(str(Tree(i.root.right).get_value_root()))
+                    else:
+                        next_lv.append("None")
+                        next_lv.append("None")
+                        next_lv_value.append("None")
+                        next_lv_value.append("None")
                 current_lv = next_lv
             Matrix.append(next_lv_value)
         return Matrix
