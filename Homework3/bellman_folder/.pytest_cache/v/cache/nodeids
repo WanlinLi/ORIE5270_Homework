@@ -1,0 +1,5 @@
+[
+  "test_folder/test_circle.py::test_circle::test_neg_circle", 
+  "test_folder/test_circle.py::test_circle::test_no_circle", 
+  "test_folder/test_circle.py::test_circle::test_positive_circle"
+]
