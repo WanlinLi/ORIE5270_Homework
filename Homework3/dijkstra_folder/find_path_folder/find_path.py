@@ -1,4 +1,6 @@
+import heapq
 import numpy as np
+
 class Graph(object):
     def __init__(self):
         pass
@@ -52,43 +54,35 @@ class Graph(object):
                 line_id = line_id + 1
         return graph
 
-    def find_negative_circles(self, name_txt_file):
-        """
-        Use Bellman Ford algorithm to find negative circle
-        :param name_txt_file: txt file
-        :return: list of the str. e.g. if graph has circle 5-6-7-5, return ['5','6','7']
-        """
+    def find_shortest_path(self, name_txt_file, source, destination):
+        # use dijiktra,
+        # return (int)
         graph = self.read_file(name_txt_file)
-        num_node = len(graph.keys())
-        for t in graph.keys():
-            F = {}
-            path = {}
-            for node in graph.keys():
-                if node == t:
-                    for k in range(num_node + 1):
-                        F[(k, node)] = 0
-                else:
-                    F[(0, node)] = np.inf
+        vertex = graph.keys()
+        dist = {}
+        for v in vertex:
+            if v == source:
+                dist[v] = 0
+            else:
+                dist[v] = np.inf
+        settlement = {}
+        frontier = [(0, source)]
+        while frontier:
+            heapq.heapify(frontier)
+            min_dist_frontier = heapq.heappop(frontier)
+            min_dist = min_dist_frontier[0]
+            min_dist_node = min_dist_frontier[1]
+            settlement[min_dist_node] = min_dist
 
-            for n in range(1, num_node + 1):
-                for s in graph.keys():
-                    if s != t:
-                        min_F = F[(n - 1, s)]
-                        for v in self.neighbor(graph, s):
-                            if F[(n - 1, v)] + self.weight(graph, s, v) < min_F:
-                                min_F = F[(n - 1, v)] + self.weight(graph, s, v)
-                                next_node = v
-                        F[(n, s)] = min_F
-                        if F[(n, s)] < F[(n - 1, s)]:
-                            path[s] = next_node
-            for s in graph.keys():
-                if F[(num_node, s)] < F[(num_node - 1, s)]:  # graph has negative circle
-                    neg_circle = True
-                    l = [s]
-                    next_node = path[s]
-                    while next_node not in l:
-                        l.append(next_node)
-                        next_node = path[next_node]
-                    circle = l[l.index(next_node):]
-                    return circle
-        return []
+            for node in self.neighbor(graph, min_dist_node):
+                if node not in settlement.keys():
+                    heapq.heappush(frontier, (dist[node], node))
+
+            for i in range(len(frontier)):
+                d = frontier[i][0];
+                v = frontier[i][1]
+                if min_dist + self.weight(graph, min_dist_node, v) < d:
+                    d = min_dist + self.weight(graph, min_dist_node, v)
+                    dist[v] = d
+                    frontier[i] = (d, v)
+        return settlement[destination]

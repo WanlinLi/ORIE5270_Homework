@@ -1,0 +1,5 @@
+[
+  "test_folder/test_path.py::testcircle::test_graph1", 
+  "test_folder/test_path.py::testcircle::test_graph2", 
+  "test_folder/test_path.py::testcircle::test_tree"
+]

@@ -1,5 +1,4 @@
 {
-  "test_folder/test_circle.py::test_circle::test_no_circle": true, 
   "test_folder/test_circle.py::testcircle::test_neg_circle": true, 
   "test_folder/test_circle.py::testcircle::test_no_circle": true, 
   "test_folder/test_circle.py::testcircle::test_positive_circle": true
