@@ -42,11 +42,11 @@ class Graph(object):
             for i in f:
                 i = i.replace('\n', '')
                 if line_id % 2 == 0:
-                    new_key = i
+                    new_key = int(i)
                     graph[new_key] = []
                 elif i != '' and i[0] == '(' and line_id % 2 == 1:
                     graph[new_key] = eval('[' + i.replace('\n', '') + ']')
-                    graph[new_key] = [(str(i[0]), i[1]) for i in graph[new_key]]
+                    graph[new_key] = [(i[0], i[1]) for i in graph[new_key]]
                 else:
                     pass
                 line_id = line_id + 1
@@ -90,5 +90,6 @@ class Graph(object):
                         l.append(next_node)
                         next_node = path[next_node]
                     circle = l[l.index(next_node):]
+                    circle.append(next_node)
                     return circle
-        return []
+        return None

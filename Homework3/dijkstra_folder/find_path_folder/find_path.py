@@ -44,11 +44,11 @@ class Graph(object):
             for i in f:
                 i = i.replace('\n', '')
                 if line_id % 2 == 0:
-                    new_key = i
+                    new_key = int(i)
                     graph[new_key] = []
                 elif i != '' and i[0] == '(' and line_id % 2 == 1:
                     graph[new_key] = eval('[' + i.replace('\n', '') + ']')
-                    graph[new_key] = [(str(i[0]), i[1]) for i in graph[new_key]]
+                    graph[new_key] = [((i[0]), i[1]) for i in graph[new_key]]
                 else:
                     pass
                 line_id = line_id + 1
@@ -66,6 +66,7 @@ class Graph(object):
             else:
                 dist[v] = np.inf
         settlement = {}
+        path = {}
         frontier = [(0, source)]
         while frontier:
             heapq.heapify(frontier)
@@ -85,4 +86,11 @@ class Graph(object):
                     d = min_dist + self.weight(graph, min_dist_node, v)
                     dist[v] = d
                     frontier[i] = (d, v)
+                    path[v] = min_dist_node
+        short_path = [destination]; v = destination
+        while v != source:
+            short_path.append(path[v])
+            v = path[v]
+        short_path = short_path[::-1]
+        return settlement[destination], short_path
         return settlement[destination]
