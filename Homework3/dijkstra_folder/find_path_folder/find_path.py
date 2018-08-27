@@ -28,8 +28,7 @@ class Graph(object):
             for i, j in graph[node1]:
                 if i == node2:
                     w = j
-        else:
-            w = np.inf
+        else:            w = np.inf
         return w
 
     def read_file(self, name_txt_file):
@@ -93,4 +92,3 @@ class Graph(object):
             v = path[v]
         short_path = short_path[::-1]
         return settlement[destination], short_path
-        return settlement[destination]
